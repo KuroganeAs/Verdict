@@ -38,9 +38,11 @@ export const SocketProvider: React.FC<{ children: ReactNode }> = ({ children }) 
 
   useEffect(() => {
     // Determine backend socket connection URL
-    const SOCKET_URL = import.meta.env.DEV
-      ? `http://${window.location.hostname}:5000`
-      : window.location.origin;
+    const SOCKET_URL = import.meta.env.VITE_BACKEND_URL || (
+      import.meta.env.DEV
+        ? `http://${window.location.hostname}:5000`
+        : window.location.origin
+    );
 
     const newSocket = io(SOCKET_URL, {
       transports: ['websocket'],
